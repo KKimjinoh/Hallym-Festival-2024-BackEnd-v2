@@ -1,4 +1,4 @@
-package com.KKimjinoh;
+package com.kkimjinoh;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
