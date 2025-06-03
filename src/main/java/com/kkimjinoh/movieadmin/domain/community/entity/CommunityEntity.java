@@ -23,7 +23,7 @@ public class CommunityEntity extends DateEntity {
     @Schema(description = "고유 ID", example = "1")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "text")
+    @Column(nullable = false)
     @Schema(description = "커뮤니티 글 내용", example = "안녕하세요!")
     private String content;
 

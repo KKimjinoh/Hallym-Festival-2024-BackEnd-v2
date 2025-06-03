@@ -23,7 +23,7 @@ public class LostItemEntity extends DateEntity {
     @Schema(description = "분실물 ID", example = "1")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "text")
+    @Column(nullable = false)
     @Schema(description = "분실물 명", example = "파랑색 지갑")
     private String name;
 
