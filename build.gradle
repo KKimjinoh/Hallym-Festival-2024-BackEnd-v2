@@ -29,6 +29,9 @@ dependencies {
 	implementation 'org.hibernate.orm:hibernate-community-dialects'
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8"
 	implementation 'org.springframework.security:spring-security-crypto'
+	implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.2")
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.706'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'

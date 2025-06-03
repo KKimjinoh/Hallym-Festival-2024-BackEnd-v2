@@ -18,7 +18,10 @@ public enum CommonError implements ErrorModel {
     // 공통 에러
     INVALID_INPUT           (400, "INVALID_INPUT",            "잘못된 입력 값"),
     METHOD_NOT_ALLOWED      (405, "METHOD_NOT_ALLOWED",       "지원하지 않는 HTTP Method"),
-    INTERNAL_SERVER_ERROR   (500, "INTERNAL_SERVER_ERROR",    "서버 내부 오류");
+    INTERNAL_SERVER_ERROR   (500, "INTERNAL_SERVER_ERROR",    "서버 내부 오류"),
+
+    // 파일 관련 에러
+    FILE_UPLOAD_FAILED      (500, "FILE_UPLOAD_FAILED",    "파일 업로드에 실패했습니다.");
 
     private final int status;
     private final String code;

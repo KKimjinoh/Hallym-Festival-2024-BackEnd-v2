@@ -5,14 +5,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-
 # docker
 docker-compose.yml
 
 # properties
-src/main/resources/application.properties
-
-
+src/main/resources/application.yml
+src/main/resources/application-movie.yml
+src/main/resources/application-movieadmin.yml
 
 ### STS ###
 .apt_generated
