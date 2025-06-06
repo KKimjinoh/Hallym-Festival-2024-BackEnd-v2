@@ -19,7 +19,11 @@ public enum DomainError implements ErrorModel {
     LOST_ITEM_NOT_FOUND (400, "LOST_ITEM_NOT_FOUND", "해당 분실물을 찾을 수 없습니다"),
 
     // 공지사항 에러
-    NOTICE_NOT_FOUND (400, "NOTICE_NOT_FOUND", "해당 공지사항을 찾을 수 없습니다");
+    NOTICE_NOT_FOUND (400, "NOTICE_NOT_FOUND", "해당 공지사항을 찾을 수 없습니다"),
+
+    // 사용자 그룹 에러
+    USER_GROUP_NOT_FOUND (400, "USER_GROUP_NOT_FOUND", "해당 사용자 그룹을 찾을 수 없습니다");
+
 
     private final int status;
     private final String code;
