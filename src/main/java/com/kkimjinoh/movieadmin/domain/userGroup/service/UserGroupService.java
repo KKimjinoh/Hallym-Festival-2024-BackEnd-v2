@@ -23,8 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserGroupService {
 
-    private final UserGroupRepository userGroupRepository;
     private final UserGroupMapper userGroupMapper;
+    private final UserGroupRepository userGroupRepository;
 
 
     /**
@@ -35,7 +35,14 @@ public class UserGroupService {
     @Transactional(readOnly = true)
     public List<ResponseGetUserGroupDto> getUserGroupList() {
         List<UserGroupEntity> entities = userGroupRepository.findAll();
-        return userGroupMapper.entityToResponseDtoList(entities);
+
+        // 사용자 그룹이 없을 경우 예외 발생
+        if (entities.isEmpty()) {
+            throw new DomainException(DomainError.USER_GROUP_NOT_FOUND);
+        }
+
+        // List<UserGroupEntity> → List<ResponseGetUserGroupDto> 변환
+        return userGroupMapper.UserGroupEntitiesToResGetUserDtos(entities);
     }
 
     /**
@@ -46,9 +53,13 @@ public class UserGroupService {
      */
     @Transactional
     public ResponseGetUserGroupDto createUserGroup(RequestCreateUserGroupDto body) {
-        UserGroupEntity entity = userGroupMapper.requestCreateDtoToEntity(body);
+
+        // RequestCreateUserGroupDto → UserGroupEntity 변환
+        UserGroupEntity entity = userGroupMapper.reqCreateDtoToUserGroupEntity(body);
         UserGroupEntity saved = userGroupRepository.save(entity);
-        return userGroupMapper.entityToResponseDto(saved);
+
+        // UserGroupEntity → ResponseGetUserGroupDto 변환
+        return userGroupMapper.UserGroupEntityToResGetUserDto(saved);
     }
 
     /**
@@ -59,12 +70,17 @@ public class UserGroupService {
      */
     @Transactional
     public ResponseGetUserGroupDto updateUserGroup(Long id, RequestUpdateUserGroupDto body) {
-        UserGroupEntity entity = userGroupRepository.findById(id)
+
+        // 사용자 그룹 조회 (없으면 예외 발생)
+        UserGroupEntity userGroup = userGroupRepository.findById(id)
                 .orElseThrow(() -> new DomainException(DomainError.USER_GROUP_NOT_FOUND));
 
-        userGroupMapper.updateEntityFromRequestUpdateDto(body, entity);
+        // RequestUpdateUserGroupDto → UserGroupEntity 변환
+        userGroup = userGroupMapper.reqUpdateDtoToUserGroupEntity(body, userGroup);
+        userGroupRepository.save(userGroup);
 
-        return userGroupMapper.entityToResponseDto(entity);
+        // UserGroupEntity → ResponseGetUserGroupDto 변환
+        return userGroupMapper.UserGroupEntityToResGetUserDto(userGroup);
     }
 
 
@@ -76,11 +92,14 @@ public class UserGroupService {
      */
     @Transactional
     public StatusOkResponseDto deleteUserGroup(Long id) {
-        // 엔티티 조회, 없으면 예외
-        UserGroupEntity entity = userGroupRepository.findById(id)
+
+        // 사용자 그룹 조회 (없으면 예외 발생)
+        userGroupRepository.findById(id)
                 .orElseThrow(() -> new DomainException(DomainError.USER_GROUP_NOT_FOUND));
 
         userGroupRepository.deleteById(id);
+
+        // OK 응답 반환
         return new StatusOkResponseDto();
     }
 }

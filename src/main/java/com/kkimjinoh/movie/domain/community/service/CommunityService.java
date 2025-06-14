@@ -53,7 +53,6 @@ public class CommunityService {
      *
      * @param id   삭제 대상 게시글의 고유 ID
      * @param body 삭제용 비밀번호
-     * @return StatusOkResponseDto 성공(OK) 응답
      */
     @Transactional
     public void deleteMessage(Long id, RequestDeleteMessageDto body) {
