@@ -1,13 +1,11 @@
-package com.kkimjinoh.movieadmin.domain.lostitem.docs;
+package com.kkimjinoh.movieadmin.domain.user.docs;
 
-import com.kkimjinoh.global.dto.ErrorResponseDto;
 import com.kkimjinoh.global.dto.StatusOkResponseDto;
+import com.kkimjinoh.global.dto.ErrorResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -21,33 +19,27 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(METHOD)
 @Retention(RUNTIME)
 @Documented
-@Operation(
-        summary = "분실물 삭제",
-        description = "메시지 ID에 해당하는 커뮤니티 글을 비밀번호 검증을 후 삭제한다."
-)
-@Parameter(
-        name = "id",
-        required = true,
-        description = "삭제할 글 ID",
-        example = "1"
-)
+@Operation(summary = "내 계정 탈퇴", description = "현재 로그인된 사용자의 계정을 탈퇴 처리한다 (Soft Delete).")
 @ApiResponses({
         @ApiResponse(
                 responseCode = "200",
-                description = "삭제 성공",
-                content = @Content(schema = @Schema(implementation = StatusOkResponseDto.class))
+                description = "탈퇴 성공",
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = StatusOkResponseDto.class)
+                )
         ),
         @ApiResponse(
                 responseCode = "400",
-                description = "존재하지 않는 분실물",
+                description = "사용자 없음",
                 content = @Content(
                         mediaType = "application/json",
                         schema = @Schema(implementation = ErrorResponseDto.class),
                         examples = @ExampleObject(
-                                name = "분실물 없음",
-                                value = "{\n  \"status\": 400,\n  \"code\": \"LOST_ITEM_NOT_FOUND\",\n  \"message\": \"해당 분실물을 찾을 수 없습니다\"\n}"
+                                name = "USER_NOT_FOUND",
+                                value = "{\n  \"status\": 400,\n  \"code\": \"USER_NOT_FOUND\",\n  \"message\": \"해당 사용자를 찾을 수 없습니다\"\n}"
                         )
                 )
         )
 })
-public @interface DeleteLostItemDoc {}
+public @interface DeleteMyAccountDoc {}

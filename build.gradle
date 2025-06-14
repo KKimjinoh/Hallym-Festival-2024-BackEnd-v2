@@ -31,8 +31,8 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-crypto'
 
 	// Lombok (코드 축약용 애노테이션)
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.32'
+	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 
 	// MapStruct (DTO ↔ Entity 자동 매핑)
 	implementation 'org.mapstruct:mapstruct:1.6.3'

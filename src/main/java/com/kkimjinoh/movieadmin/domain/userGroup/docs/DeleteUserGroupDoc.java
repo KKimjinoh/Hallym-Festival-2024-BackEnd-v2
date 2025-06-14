@@ -19,8 +19,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 @Operation(
-        summary = "사용자 그룹 삭제",
-        description = "특정 ID의 사용자 그룹을 삭제한다."
+        summary = "\uD83D\uDD11 사용자 그룹 삭제",
+        description = "Admin(관리자) 권한을 가진 사용자가 특정 ID의 사용자 그룹을 삭제한다."
 )
 @Parameter(
         name = "id",

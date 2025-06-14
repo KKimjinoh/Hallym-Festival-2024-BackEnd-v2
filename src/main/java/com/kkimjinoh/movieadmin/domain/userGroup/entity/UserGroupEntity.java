@@ -1,20 +1,16 @@
 package com.kkimjinoh.movieadmin.domain.userGroup.entity;
 
 import com.kkimjinoh.global.entity.DateEntity;
-import com.kkimjinoh.movieadmin.domain.userGroup.dto.request.RequestUpdateUserGroupDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "user_group")
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
-@ToString
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "user_group")
 public class UserGroupEntity extends DateEntity {
 
     @Id

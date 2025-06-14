@@ -5,30 +5,35 @@ import com.kkimjinoh.movieadmin.domain.userGroup.dto.request.RequestUpdateUserGr
 import com.kkimjinoh.movieadmin.domain.userGroup.dto.response.ResponseGetUserGroupDto;
 import com.kkimjinoh.movieadmin.domain.userGroup.entity.UserGroupEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 import java.util.List;
 
+/**
+ * 사용자 그룹 Mapper
+ */
 @Mapper(componentModel = "spring")
 public interface UserGroupMapper {
 
     /**
      * RequestCreateUserGroupDto → UserGroupEntity 변환
      */
-    UserGroupEntity requestCreateDtoToEntity(RequestCreateUserGroupDto requestCreateUserGroupDto);
+    UserGroupEntity reqCreateDtoToUserGroupEntity(RequestCreateUserGroupDto requestCreateUserGroupDto);
 
     /**
-     * RequestUpdateUserGroupDto → 기존 UserGroupEntity 병합
+     * RequestUpdateUserGroupDto → UserGroupEntity 변환
      */
-    void updateEntityFromRequestUpdateDto(RequestUpdateUserGroupDto requestUpdateUserGroupDto, @MappingTarget UserGroupEntity entity);
-
+    default UserGroupEntity reqUpdateDtoToUserGroupEntity(RequestUpdateUserGroupDto requestUpdateUserGroupDto, UserGroupEntity userGroupEntity) {
+        return userGroupEntity.toBuilder()
+                .name(requestUpdateUserGroupDto.getName())
+                .build();
+    }
     /**
      * UserGroupEntity → ResponseGetUserGroupDto 변환
      */
-    ResponseGetUserGroupDto entityToResponseDto(UserGroupEntity userGroupEntity);
+    ResponseGetUserGroupDto UserGroupEntityToResGetUserDto(UserGroupEntity userGroupEntity);
 
     /**
      * List<UserGroupEntity> → List<ResponseGetUserGroupDto> 변환
      */
-    List<ResponseGetUserGroupDto> entityToResponseDtoList(List<UserGroupEntity> userGroupEntities);
+    List<ResponseGetUserGroupDto> UserGroupEntitiesToResGetUserDtos(List<UserGroupEntity> userGroupEntities);
 
 }

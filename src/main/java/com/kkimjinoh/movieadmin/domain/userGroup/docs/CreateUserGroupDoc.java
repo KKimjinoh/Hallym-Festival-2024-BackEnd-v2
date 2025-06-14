@@ -21,8 +21,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 @Operation(
-        summary = "사용자 그룹 생성",
-        description = "새로운 공지사항을 등록한다."
+        summary = "\uD83D\uDD11 사용자 그룹 생성",
+        description = "Admin(관리자) 권한을 가진 사용자가 새로운 사용자 그룹 생성한다."
 )
 @RequestBody(
         required = true,
