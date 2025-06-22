@@ -1,17 +1,20 @@
 package com.kkimjinoh.movieadmin.domain.community.service;
 
+import com.kkimjinoh.global.dto.StatusOkResponseDto;
 import com.kkimjinoh.global.error.DomainError;
 import com.kkimjinoh.global.exception.DomainException;
 import com.kkimjinoh.global.util.PasswordUtil;
 import com.kkimjinoh.movieadmin.domain.community.dto.request.RequestCreateMessageDto;
-import com.kkimjinoh.movieadmin.domain.community.dto.request.RequestDeleteMessageDto;
 import com.kkimjinoh.movieadmin.domain.community.dto.response.ResponseGetMessageDto;
-import com.kkimjinoh.movieadmin.domain.community.dto.response.ResponseGetMessageListDto;
 import com.kkimjinoh.movieadmin.domain.community.entity.CommunityEntity;
+import com.kkimjinoh.movieadmin.domain.community.mapper.CommunityMapper;
 import com.kkimjinoh.movieadmin.domain.community.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 커뮤니티 게시글 Service
@@ -21,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommunityService {
 
+    private final CommunityMapper communityMapper;
     private final CommunityRepository communityRepository;
 
     /**
@@ -31,11 +35,10 @@ public class CommunityService {
      */
     @Transactional
     public ResponseGetMessageDto createMessage(RequestCreateMessageDto body) {
-        CommunityEntity entity = body.toEntity();
-        // 비밀번호 해싱 후 저장
-        entity.setPassword(PasswordUtil.hash(body.getPassword()));
+        body.setPassword(PasswordUtil.hash(body.getPassword()));
+        CommunityEntity entity = communityMapper.ReqCreateMessageDtoToCommunityEntity(body);
         CommunityEntity saved = communityRepository.save(entity);
-        return ResponseGetMessageDto.fromEntity(saved);
+        return communityMapper.CommunityEntityToResGetMessageDto(saved);
     }
 
     /**
@@ -44,27 +47,26 @@ public class CommunityService {
      * @return ResponseGetMessageListDto 존재하는 모든 게시글 목록
      */
     @Transactional(readOnly = true)
-    public ResponseGetMessageListDto getMessageList() {
-        return ResponseGetMessageListDto.fromEntities(communityRepository.findAll());
+    public List<ResponseGetMessageDto> getMessageList() {
+        List<CommunityEntity> entities = communityRepository.findAll();
+        return communityMapper.CommunityEntitiesToResGetMessageDtos(entities);
     }
 
     /**
      * 지정된 ID의 커뮤니티 글을 비밀번호 검증 후 삭제한다.
      *
      * @param id   삭제 대상 게시글의 고유 ID
-     * @param body 삭제용 비밀번호
      * @return StatusOkResponseDto 성공(OK) 응답
      */
     @Transactional
-    public void deleteMessage(Long id, RequestDeleteMessageDto body) {
+    public StatusOkResponseDto deleteMessage(Long id) {
         // 엔티티 조회, 없으면 예외
         CommunityEntity entity = communityRepository.findById(id)
                 .orElseThrow(() -> new DomainException(DomainError.COMMUNITY_MESSAGE_NOT_FOUND));
 
-        // 비밀번호 비교 (불일치 시 예외)
-        if (!PasswordUtil.matches(body.getPassword(), entity.getPassword())) {
-            throw new DomainException(DomainError.COMMUNITY_MESSAGE_PASSWORD_MISMATCH);
-        }
-        communityRepository.deleteById(id);
+        communityRepository.delete(entity);
+
+        // OK 응답 반환
+        return new StatusOkResponseDto();
     }
 }

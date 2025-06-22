@@ -1,6 +1,5 @@
 package com.kkimjinoh.movieadmin.domain.notice.dto.request;
 
-import com.kkimjinoh.movieadmin.domain.notice.entity.NoticeEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -24,11 +23,4 @@ public class RequestUpdateNoticeDto {
     @NotBlank(message = "내용은 비어 있을 수 없습니다.")
     private String content;
 
-    /**
-     * RequestUpdateNoticeDto -> NoticeEntity
-     */
-    public void updateEntity(NoticeEntity entity) {
-        entity.setTitle(this.title);
-        entity.setContent(this.content);
-    }
 }

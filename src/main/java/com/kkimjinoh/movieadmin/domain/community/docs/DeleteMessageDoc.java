@@ -2,7 +2,6 @@ package com.kkimjinoh.movieadmin.domain.community.docs;
 
 import com.kkimjinoh.global.dto.ErrorResponseDto;
 import com.kkimjinoh.global.dto.StatusOkResponseDto;
-import com.kkimjinoh.movieadmin.domain.community.dto.request.RequestDeleteMessageDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,13 +30,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         required = true,
         description = "삭제할 글 ID",
         example = "1"
-)
-@RequestBody(
-        required = true,
-        content = @Content(
-                mediaType = "application/json",
-                schema = @Schema(implementation = RequestDeleteMessageDto.class)
-        )
 )
 @ApiResponses({
         @ApiResponse(

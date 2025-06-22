@@ -1,6 +1,6 @@
 package com.kkimjinoh.movieadmin.domain.lostitem.docs;
 
-import com.kkimjinoh.movieadmin.domain.lostitem.dto.response.ResponseGetLostItemsListDto;
+import com.kkimjinoh.movieadmin.domain.lostitem.dto.response.ResponseGetLostItemDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         @ApiResponse(
                 responseCode = "200",
                 description = "분실물 목록 조회 성공",
-                content = @Content(schema = @Schema(implementation = ResponseGetLostItemsListDto.class))
+                content = @Content(schema = @Schema(implementation = ResponseGetLostItemDto.class))
         )
 })
 public @interface GetLostItemsListDoc {}

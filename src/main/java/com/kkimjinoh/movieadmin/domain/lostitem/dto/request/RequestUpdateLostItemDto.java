@@ -32,13 +32,5 @@ public class RequestUpdateLostItemDto {
     @Schema(description = "회수 여부", example = "true")
     private boolean isReturn;
 
-    /**
-     * RequestCreateLostItemDto -> LostItemEntity
-     */
-    public void updateEntity(LostItemEntity entity, String imageUrl) {
-        entity.setName(this.name);
-        entity.setLocation(this.location);
-        entity.setImageUrl(imageUrl);
-        entity.setReturn(this.isReturn);
-    }
+
 }

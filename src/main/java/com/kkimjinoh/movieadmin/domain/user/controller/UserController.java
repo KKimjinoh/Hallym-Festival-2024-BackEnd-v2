@@ -19,9 +19,10 @@ import java.util.List;
 
 /**
  * 사용자 관련 API 컨트롤러
+ * 모든 사용자 조회 및 내 정보 조회, 수정, 삭제 기능을 담당한다.
  */
 @RestController
-@RequestMapping("api/manager/user")
+@RequestMapping("api/user")
 @RequiredArgsConstructor
 @Tag(name = "사용자", description = "사용자 관련 API")
 public class UserController {

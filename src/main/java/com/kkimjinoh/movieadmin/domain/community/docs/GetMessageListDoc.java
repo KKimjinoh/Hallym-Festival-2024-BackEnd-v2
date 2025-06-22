@@ -1,6 +1,6 @@
 package com.kkimjinoh.movieadmin.domain.community.docs;
 
-import com.kkimjinoh.movieadmin.domain.community.dto.response.ResponseGetMessageListDto;
+import com.kkimjinoh.movieadmin.domain.community.dto.response.ResponseGetMessageDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         @ApiResponse(
                 responseCode = "200",
                 description = "글 목록 조회 성공",
-                content = @Content(schema = @Schema(implementation = ResponseGetMessageListDto.class))
+                content = @Content(schema = @Schema(implementation = ResponseGetMessageDto.class))
         ),
 })
 public @interface GetMessageListDoc {}

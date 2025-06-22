@@ -8,14 +8,15 @@ import com.kkimjinoh.global.util.S3Uploader;
 import com.kkimjinoh.movieadmin.domain.lostitem.dto.request.RequestCreateLostItemDto;
 import com.kkimjinoh.movieadmin.domain.lostitem.dto.request.RequestUpdateLostItemDto;
 import com.kkimjinoh.movieadmin.domain.lostitem.dto.response.ResponseGetLostItemDto;
-import com.kkimjinoh.movieadmin.domain.lostitem.dto.response.ResponseGetLostItemsListDto;
 import com.kkimjinoh.movieadmin.domain.lostitem.entity.LostItemEntity;
+import com.kkimjinoh.movieadmin.domain.lostitem.mapper.LostItemMapper;
 import com.kkimjinoh.movieadmin.domain.lostitem.repository.LostItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 분실물 Service
@@ -25,8 +26,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class LostItemService {
 
-    private final LostItemRepository lostItemRepository;
     private final S3Uploader s3Uploader;
+    private final LostItemMapper lostItemMapper;
+    private final LostItemRepository lostItemRepository;
 
     /**
      * 새로운 분실물을 추가하고, 이미지를 S3에 업로드한다.
@@ -43,10 +45,11 @@ public class LostItemService {
             throw new DomainException(CommonError.FILE_UPLOAD_FAILED);
         }
 
-        LostItemEntity entity = body.toEntity(imageUrl);
+        LostItemEntity entity = lostItemMapper.reqCreateDtoToLostItemEntity(body, imageUrl);
         LostItemEntity saved = lostItemRepository.save(entity);
-        return ResponseGetLostItemDto.fromEntity(saved);
+        return lostItemMapper.lostItemEntityToResDto(saved);
     }
+
 
     /**
      * 분실물을 수정하고, 이미지가 새로 올라온 경우 기존 이미지를 삭제하고 교체한다.
@@ -58,7 +61,7 @@ public class LostItemService {
 
         String imageUrl = entity.getImageUrl();
 
-        if (body.getLostItemImage() != null) {
+        if (body.getLostItemImage() != null && !body.getLostItemImage().isEmpty()) {
             try {
                 imageUrl = s3Uploader.uploadFile(body.getLostItemImage(), "lost-items");
                 s3Uploader.deleteFile(entity.getImageUrl());
@@ -67,18 +70,20 @@ public class LostItemService {
             }
         }
 
-        body.updateEntity(entity, imageUrl);
-        return ResponseGetLostItemDto.fromEntity(entity);
+        LostItemEntity updated = lostItemMapper.reqUpdateDtoToLostItemEntity(body, entity, imageUrl);
+        LostItemEntity saved = lostItemRepository.save(updated);
+        return lostItemMapper.lostItemEntityToResDto(saved);
     }
+
 
     /**
      * 전체 분실물들을 조회한다.
      *
-     * @return  ResponseGetLostItemsListDto 존재하는 모든 분실물 목록
+     * @return List<ResponseGetLostItemDto> 전체 분실물 목록
      */
     @Transactional(readOnly = true)
-    public ResponseGetLostItemsListDto getMessageList() {
-        return ResponseGetLostItemsListDto.fromEntities(lostItemRepository.findAll());
+    public List<ResponseGetLostItemDto> getMessageList() {
+        return lostItemMapper.lostItemEntitiesToResDtos(lostItemRepository.findAll());
     }
 
     /**

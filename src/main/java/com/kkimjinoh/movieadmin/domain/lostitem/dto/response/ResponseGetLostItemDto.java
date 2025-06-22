@@ -1,11 +1,6 @@
 package com.kkimjinoh.movieadmin.domain.lostitem.dto.response;
 
-import com.kkimjinoh.movieadmin.domain.lostitem.entity.LostItemEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -40,18 +35,4 @@ public class ResponseGetLostItemDto {
     @Schema(description = "수정일시", example = "2025-06-01T20:05:00")
     private LocalDateTime updatedAt;
 
-    /**
-     * LostItemEntity -> ResponseGetLostItemDto
-     */
-    public static ResponseGetLostItemDto fromEntity(LostItemEntity e) {
-        return ResponseGetLostItemDto.builder()
-                .id(e.getId())
-                .name(e.getName())
-                .location(e.getLocation())
-                .imageUrl(e.getImageUrl())
-                .isReturn(e.isReturn())
-                .createdAt(e.getCreatedAt())
-                .updatedAt(e.getUpdatedAt())
-                .build();
-    }
 }

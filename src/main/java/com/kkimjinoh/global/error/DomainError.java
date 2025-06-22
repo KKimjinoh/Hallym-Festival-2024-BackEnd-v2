@@ -35,7 +35,13 @@ public enum DomainError implements ErrorModel {
     INVALID_AUTH_CODE (400, "INVALID_AUTH_CODE", "인증코드가 틀렸습니다"),
     AUTH_CODE_EXPIRED (400, "AUTH_CODE_EXPIRED", "인증코드가 만료되었습니다"),
     INVALID_SIGNUP_TOKEN (400, "INVALID_SIGNUP_TOKEN", "유효하지 않은 회원가입 토큰입니다"),
-    SIGNUP_TOKEN_EXPIRED (400, "SIGNUP_TOKEN_EXPIRED", "회원가입 인증이 만료되었습니다");
+    SIGNUP_TOKEN_EXPIRED (400, "SIGNUP_TOKEN_EXPIRED", "회원가입 인증이 만료되었습니다"),
+
+    // 예약 에러
+    RESERVATION_NOT_FOUND (400, "RESERVATION_NOT_FOUND", "해당 예약 정보를 찾을 수 없습니다"),
+    RESERVATION_ALREADY_CANCELED (400, "RESERVATION_ALREADY_CANCELED", "이미 취소된 예약입니다"),
+    RESERVATION_FAILED (500, "RESERVATION_FAILED", "예약 처리 중 오류가 발생했습니다"),
+    RESERVATION_DUPLICATE (400, "RESERVATION_DUPLICATE", "이미 예약하셨습니다");
 
     private final int status;
     private final String code;

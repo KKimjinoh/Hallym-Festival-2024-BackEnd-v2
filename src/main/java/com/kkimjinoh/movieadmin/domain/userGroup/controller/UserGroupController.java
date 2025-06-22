@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * 사용자 그룹 Controller
- * 사용자 그룹 생성, 조회, 수정, 삭제 기능을 담당한다.
+ * 사용자 그룹 조회 기능을 담당한다.
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/manager/user-group")
+@RequestMapping("/api/user-group")
 @Tag(name = "사용자 그룹", description = "사용자 그룹 관리 기능")
 public class UserGroupController {
 

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * 사용자 그룹 Controller
- * 사용자 그룹 생성, 조회, 수정, 삭제 기능을 담당한다.
+ * 사용자 그룹 Controller (admin 전용)
+ * 사용자 그룹 생성, 수정, 삭제 기능을 담당한다.
  */
 @RestController
 @RequiredArgsConstructor

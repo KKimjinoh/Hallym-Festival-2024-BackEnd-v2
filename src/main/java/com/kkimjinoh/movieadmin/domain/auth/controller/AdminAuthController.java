@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 사용자 인증 관련 API 컨트롤러 (Admin 전용)
+ * 사용자 초대 기능을 담당한다.
  */
 @RestController
 @RequestMapping("/api/admin/auth")
@@ -22,9 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminAuthController {
     private final AdminAuthService AdminauthService;
 
-    /**
-     * 새로운 사용자 초대 및 등록 (관리자)
-     */
+
     @PostMapping("/invite")
     @InviteDoc
     public ResponseEntity<ResponseInviteDto> invite(@Valid @RequestBody RequestInviteDto body) {

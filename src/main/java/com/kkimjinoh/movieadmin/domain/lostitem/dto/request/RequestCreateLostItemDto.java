@@ -28,15 +28,5 @@ public class RequestCreateLostItemDto {
     @Schema(description = "분실물 사진", required = true)
     private MultipartFile lostItemImage;
 
-    /**
-     * RequestCreateLostItemDto -> LostItemEntity
-     */
-    public LostItemEntity toEntity(String imageUrl) {
-        return LostItemEntity.builder()
-                .name(this.name)
-                .location(this.location)
-                .imageUrl(imageUrl)
-                .isReturn(false)
-                .build();
-    }
+
 }

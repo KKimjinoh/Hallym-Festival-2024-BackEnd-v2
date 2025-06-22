@@ -29,16 +29,4 @@ public class ResponseGetNoticeDto {
     @Schema(description = "수정일시", example = "2025-06-01T20:05:00")
     private LocalDateTime updatedAt;
 
-    /**
-     * LostItemEntity -> ResponseGetLostItemDto
-     */
-    public static ResponseGetNoticeDto fromEntity(NoticeEntity e) {
-        return ResponseGetNoticeDto.builder()
-                .id(e.getId())
-                .title(e.getTitle())
-                .content(e.getContent())
-                .createdAt(e.getCreatedAt())
-                .updatedAt(e.getUpdatedAt())
-                .build();
-    }
 }

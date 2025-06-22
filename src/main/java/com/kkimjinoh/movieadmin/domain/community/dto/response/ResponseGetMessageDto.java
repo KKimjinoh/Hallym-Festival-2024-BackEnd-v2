@@ -30,16 +30,5 @@ public class ResponseGetMessageDto {
     @Schema(description = "수정일시", example = "2025-06-01T20:05:00")
     private LocalDateTime updatedAt;
 
-    /**
-     * CommunityEntity -> RequestCreateMessageDto
-     */
-    public static ResponseGetMessageDto fromEntity(CommunityEntity e) {
-        return ResponseGetMessageDto.builder()
-                .id(e.getId())
-                .content(e.getContent())
-                .nickname(e.getNickname())
-                .createdAt(e.getCreatedAt())
-                .updatedAt(e.getUpdatedAt())
-                .build();
-    }
+
 }

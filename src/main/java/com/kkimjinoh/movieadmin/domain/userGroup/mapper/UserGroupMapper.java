@@ -26,6 +26,7 @@ public interface UserGroupMapper {
                 .name(requestUpdateUserGroupDto.getName())
                 .build();
     }
+
     /**
      * UserGroupEntity → ResponseGetUserGroupDto 변환
      */

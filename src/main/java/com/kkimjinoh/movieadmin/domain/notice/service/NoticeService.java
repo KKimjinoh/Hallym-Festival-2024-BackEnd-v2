@@ -3,18 +3,17 @@ package com.kkimjinoh.movieadmin.domain.notice.service;
 import com.kkimjinoh.global.dto.StatusOkResponseDto;
 import com.kkimjinoh.global.error.DomainError;
 import com.kkimjinoh.global.exception.DomainException;
-import com.kkimjinoh.global.util.S3Uploader;
 import com.kkimjinoh.movieadmin.domain.notice.dto.request.RequestCreateNoticeDto;
 import com.kkimjinoh.movieadmin.domain.notice.dto.request.RequestUpdateNoticeDto;
 import com.kkimjinoh.movieadmin.domain.notice.dto.response.ResponseGetNoticeDto;
-import com.kkimjinoh.movieadmin.domain.notice.dto.response.ResponseGetNoticesListDto;
 import com.kkimjinoh.movieadmin.domain.notice.entity.NoticeEntity;
+import com.kkimjinoh.movieadmin.domain.notice.mapper.NoticeMapper;
 import com.kkimjinoh.movieadmin.domain.notice.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * 공지사항 Service
@@ -24,8 +23,8 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class NoticeService {
 
+    private final NoticeMapper noticeMapper;
     private final NoticeRepository noticeRepository;
-    private final S3Uploader s3Uploader;
 
     /**
      * 새로운 공지사항을 추가한다.
@@ -35,9 +34,9 @@ public class NoticeService {
      */
     @Transactional
     public ResponseGetNoticeDto createNotice(RequestCreateNoticeDto body) {
-        NoticeEntity entity = body.toEntity();
+        NoticeEntity entity = noticeMapper.reqCreateDtoToNoticeEntity(body);
         NoticeEntity saved = noticeRepository.save(entity);
-        return ResponseGetNoticeDto.fromEntity(saved);
+        return noticeMapper.noticeEntityToResGetNoticeDto(saved);
     }
 
     /**
@@ -52,8 +51,8 @@ public class NoticeService {
         NoticeEntity entity = noticeRepository.findById(id)
                 .orElseThrow(() -> new DomainException(DomainError.NOTICE_NOT_FOUND));
 
-        body.updateEntity(entity);
-        return ResponseGetNoticeDto.fromEntity(entity);
+        NoticeEntity updated = noticeMapper.reqUpdateDtoToNoticeEntity(body, entity);
+        return noticeMapper.noticeEntityToResGetNoticeDto(updated);
     }
 
     /**
@@ -62,8 +61,8 @@ public class NoticeService {
      * @return  ResponseGetNoticesListDto 존재하는 모든 공지사항 목록
      */
     @Transactional(readOnly = true)
-    public ResponseGetNoticesListDto getNoticesList() {
-        return ResponseGetNoticesListDto.fromEntities(noticeRepository.findAll());
+    public List<ResponseGetNoticeDto> getNoticesList() {
+        return noticeMapper.noticeEntitiesToResGetNoticeDtos(noticeRepository.findAll());
     }
 
     /**

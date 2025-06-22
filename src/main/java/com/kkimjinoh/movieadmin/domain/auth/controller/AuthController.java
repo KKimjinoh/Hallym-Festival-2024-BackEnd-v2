@@ -13,18 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 사용자 인증 관련 API 컨트롤러
+ * 로그인, 회원가입, 토큰 재발급, 이메일 인증 코드 검증 기능을 담당한다.
  */
 @RestController
-@RequestMapping("api/manager/auth")
+@RequestMapping("api/auth")
 @RequiredArgsConstructor
 @Tag(name = "사용자 인증", description = "인증 API")
 public class AuthController {
 
     private final AuthService authService;
 
-    /**
-     * 로그인 요청
-     */
     @PostMapping("/login")
     @LoginDoc
     public ResponseEntity<ResponseLoginDto> login(@Valid @RequestBody RequestLoginDto body) {
@@ -32,9 +30,6 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * 회원가입 정보 입력 및 최종 등록
-     */
     @PutMapping("/register")
     @RegisterDoc
     public ResponseEntity<StatusOkResponseDto> register(@Valid @RequestBody RequestRegisterDto body) {
@@ -42,9 +37,6 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * 토큰 재발급 요청
-     */
     @PostMapping("/reissue")
     @ReissueDoc
     public ResponseEntity<ResponseReissueDto> reissue(@Valid @RequestBody RequestReissueDto body) {
@@ -52,9 +44,6 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * 토큰 재발급 요청
-     */
     @PostMapping("/verify-code")
     @VerifyCodeDoc
     public ResponseEntity<ResponseVerifyCodeDto> verifyCode(@Valid @RequestBody RequestVerifyCodeDto body) {

@@ -10,12 +10,10 @@ import lombok.experimental.SuperBuilder;
  * 커뮤니티 게시글 Entity
  */
 @Entity
-@Table(name = "community")
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
 @SuperBuilder
-@ToString(callSuper = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "community")
 public class CommunityEntity extends DateEntity {
 
     @Id

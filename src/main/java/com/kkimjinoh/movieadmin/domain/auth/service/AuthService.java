@@ -13,7 +13,6 @@ import com.kkimjinoh.movieadmin.domain.auth.mapper.AuthMapper;
 import com.kkimjinoh.movieadmin.domain.auth.repository.AuthCodeRepository;
 import com.kkimjinoh.movieadmin.domain.user.entity.UserEntity;
 import com.kkimjinoh.movieadmin.domain.user.repository.UserRepository;
-import com.kkimjinoh.movieadmin.domain.userGroup.repository.UserGroupRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;

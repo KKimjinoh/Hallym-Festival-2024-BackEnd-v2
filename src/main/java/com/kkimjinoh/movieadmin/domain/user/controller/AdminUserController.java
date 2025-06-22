@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * 사용자 관련 API 컨트롤러 (Admin 전용)
+ * 사용자 상세 조회, 수정, 삭제 기능을 담당한다.
  */
 @RestController
 @RequestMapping("api/admin/user")

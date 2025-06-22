@@ -28,14 +28,4 @@ public class RequestCreateMessageDto {
     @NotBlank(message = "닉네임은 비어 있을 수 없습니다.")
     private String nickname;
 
-    /**
-     * RequestCreateMessageDto -> CommunityEntity
-     */
-    public CommunityEntity toEntity() {
-        return CommunityEntity.builder()
-                .content(content)
-                .password(password)
-                .nickname(nickname)
-                .build();
-    }
 }

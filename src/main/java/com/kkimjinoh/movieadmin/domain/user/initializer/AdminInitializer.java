@@ -12,6 +12,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * 애플리케이션 실행 시 최초 1회 관리자 계정을 초기화하는 컴포넌트
+ * 관리자 계정이 존재하지 않는 경우, 환경변수를 통해 초기 관리자 계정을 생성함
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

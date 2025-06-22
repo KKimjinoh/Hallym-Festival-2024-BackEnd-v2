@@ -10,12 +10,10 @@ import lombok.experimental.SuperBuilder;
  * 분실물 Entity
  */
 @Entity
+@Getter
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "lostItem")
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
-@ToString(callSuper = true)
 public class LostItemEntity extends DateEntity {
 
     @Id

@@ -1,6 +1,6 @@
 package com.kkimjinoh.movieadmin.domain.notice.docs;
 
-import com.kkimjinoh.movieadmin.domain.notice.dto.response.ResponseGetNoticesListDto;
+import com.kkimjinoh.movieadmin.domain.notice.dto.response.ResponseGetNoticeDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
         @ApiResponse(
                 responseCode = "200",
                 description = "공지사항 목록 조회 성공",
-                content = @Content(schema = @Schema(implementation = ResponseGetNoticesListDto.class))
+                content = @Content(schema = @Schema(implementation = ResponseGetNoticeDto.class))
         )
 })
 public @interface GetNoticesListDoc {}

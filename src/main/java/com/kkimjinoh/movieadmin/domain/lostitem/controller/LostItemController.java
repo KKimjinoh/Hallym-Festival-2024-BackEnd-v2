@@ -8,7 +8,6 @@ import com.kkimjinoh.movieadmin.domain.lostitem.docs.UpdateLostItemDoc;
 import com.kkimjinoh.movieadmin.domain.lostitem.dto.request.RequestCreateLostItemDto;
 import com.kkimjinoh.movieadmin.domain.lostitem.dto.request.RequestUpdateLostItemDto;
 import com.kkimjinoh.movieadmin.domain.lostitem.dto.response.ResponseGetLostItemDto;
-import com.kkimjinoh.movieadmin.domain.lostitem.dto.response.ResponseGetLostItemsListDto;
 import com.kkimjinoh.movieadmin.domain.lostitem.service.LostItemService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,13 +15,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 분실물 Controller
  * 분실물 조회, 추가, 수정, 삭제 기능을 담당한다.
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/lostitem")
+@RequestMapping("/api/lostitem")
 @Tag(name = "분실물", description = "분실물 관리 기능")
 public class LostItemController {
 
@@ -37,7 +38,7 @@ public class LostItemController {
 
     @GetMapping
     @GetLostItemsListDoc
-    public ResponseEntity<ResponseGetLostItemsListDto> getMessageList() {
+    public ResponseEntity<List<ResponseGetLostItemDto>> getMessageList() {
         return ResponseEntity.ok(lostItemService.getMessageList());
     }
 

@@ -10,12 +10,10 @@ import lombok.experimental.SuperBuilder;
  * 공지사항 Entity
  */
 @Entity
+@Getter
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "notice")
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
-@ToString(callSuper = true)
 public class NoticeEntity extends DateEntity {
 
     @Id
