@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# jmeter
+jmeter.log
+
 # docker
 docker-compose.yml
 
